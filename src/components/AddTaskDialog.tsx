@@ -33,7 +33,7 @@ const AddTaskDialog = ({ open, onClose, onAddTask }) => {
 
     try {
       // Option 1: Using fetch API
-      const response = await fetch('http://localhost:8080/api/tasks', {
+      const response = await fetch('http://localhost:3000/tasks/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const AddTaskDialog = ({ open, onClose, onAddTask }) => {
       
       // Call parent callback with the created task
       if (onAddTask) {
-        onAddTask(data);
+        onAddTask();
       }
 
       // Reset form after short delay to show success
@@ -340,50 +340,6 @@ const AddTaskDialog = ({ open, onClose, onAddTask }) => {
                 },
               }}
             />
-
-            <Box
-              sx={{
-                marginTop: 2,
-                padding: 2,
-                borderRadius: 2,
-                background: 'hsl(var(--muted) / 0.3)',
-                border: '1px solid hsl(var(--border) / 0.3)',
-                fontSize: '0.875rem',
-                color: 'hsl(var(--muted-foreground))',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-              }}
-            >
-              <Box
-                component="kbd"
-                sx={{
-                  padding: '2px 6px',
-                  borderRadius: 1,
-                  background: 'hsl(var(--background))',
-                  border: '1px solid hsl(var(--border))',
-                  fontSize: '0.75rem',
-                  fontFamily: 'monospace',
-                }}
-              >
-                Ctrl
-              </Box>
-              +
-              <Box
-                component="kbd"
-                sx={{
-                  padding: '2px 6px',
-                  borderRadius: 1,
-                  background: 'hsl(var(--background))',
-                  border: '1px solid hsl(var(--border))',
-                  fontSize: '0.75rem',
-                  fontFamily: 'monospace',
-                }}
-              >
-                Enter
-              </Box>
-              to add task quickly
-            </Box>
           </Box>
         </Fade>
       </DialogContent>

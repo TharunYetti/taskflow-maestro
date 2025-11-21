@@ -4,16 +4,16 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { motion } from 'framer-motion';
 
 interface Task {
-  id: number;
+  _id: string;
   title: string;
   description: string;
-  completed: boolean;
+  isCompleted: boolean;
   createdAt: string;
 }
 
 interface TaskCardProps {
   task: Task;
-  onToggleComplete: (id: number) => void;
+  onToggleComplete: (id: string, currentStatus: boolean) => void;
 }
 
 const TaskCard = ({ task, onToggleComplete }: TaskCardProps) => {
@@ -28,7 +28,7 @@ const TaskCard = ({ task, onToggleComplete }: TaskCardProps) => {
         className="mb-4 hover:shadow-lg transition-shadow duration-300 border border-border"
         sx={{ 
           borderRadius: 2,
-          background: task.completed 
+          background: task.isCompleted 
             ? 'linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--accent)) 100%)' 
             : 'linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%)',
         }}
@@ -37,8 +37,8 @@ const TaskCard = ({ task, onToggleComplete }: TaskCardProps) => {
           <Checkbox
             icon={<RadioButtonUncheckedIcon />}
             checkedIcon={<CheckCircleIcon />}
-            checked={task.completed}
-            onChange={() => onToggleComplete(task.id)}
+            checked={task.isCompleted}
+            onChange={() => onToggleComplete(task._id, task.isCompleted)}
             sx={{
               color: 'hsl(var(--primary))',
               '&.Mui-checked': {
@@ -51,14 +51,14 @@ const TaskCard = ({ task, onToggleComplete }: TaskCardProps) => {
           <div className="flex-1">
             <Typography 
               variant="h6" 
-              className={`font-semibold ${task.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}
+              className={`font-semibold ${task.isCompleted ? 'line-through text-muted-foreground' : 'text-foreground'}`}
               sx={{ fontSize: '1.125rem', marginBottom: '4px' }}
             >
               {task.title}
             </Typography>
             <Typography 
               variant="body2" 
-              className={task.completed ? 'text-muted-foreground' : 'text-muted-foreground'}
+              className={task.isCompleted ? 'text-muted-foreground' : 'text-muted-foreground'}
               sx={{ fontSize: '0.875rem', marginBottom: '8px' }}
             >
               {task.description}
