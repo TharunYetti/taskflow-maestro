@@ -64,6 +64,25 @@ const Index = () => {
     }
   };
 
+  const handleDelete = (id: string) => {
+
+    try{
+      const response = fetch(`http://localhost:3000/tasks/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Task deleted:", data);
+      setIsUpdated(!isUpdated);
+    });
+    }catch(error){
+      console.error("Error deleting task:", error);
+    }
+  };
+
   const displayTasks = tabValue === 0 ? tasks : tabValue === 1 ? pendingTasks : completedTasks;
 
   return (
@@ -148,6 +167,7 @@ const Index = () => {
                   key={task._id} 
                   task={task} 
                   onToggleComplete={handleToggleComplete}
+                  onDelete={handleDelete}
                 />
               ))}
             </AnimatePresence>
